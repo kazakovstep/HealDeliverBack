@@ -1,0 +1,45 @@
+@startuml
+
+package "DTO" {
+    class UserDto {
+        -id: Long
+        -username: String
+        -email: String
+        -password: String
+        -role: List<Role>
+    }
+
+    class DeliveryPersonDTO {
+        -id: Long
+        -name: String
+        -phone: String
+        -zone: DeliveryZone
+    }
+
+    class RegistrationUserDto {
+        -email: String
+        -password: String
+    }
+
+    class JwtRequest {
+        -email: String
+        -password: String
+    }
+
+    class JwtResponse {
+        -token: String
+    }
+
+    class OrderRequest {
+        -productIds: List<Long>
+        -quantities: List<Integer>
+        -userId: Long
+        -cost: int
+        -amount: int
+        -deliveryAddress: String
+        -deliveryLatitude: Double
+        -deliveryLongitude: Double
+    }
+}
+
+@enduml 

@@ -31,6 +31,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order getLastUserOrder(Long userId) {
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        return orders.get(orders.size() - 1);
+    }
+
+    @Override
     public Optional<Order> getOrderById(Long id){
         return orderRepository.findById(id);
     }

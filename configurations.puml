@@ -1,0 +1,52 @@
+@startuml
+
+package "Configurations" {
+    class WebSecurityConfig {
+        -jwtRequestFilter: JwtRequestFilter
+        +userDetailsService(): UserDetailsService
+        +passwordEncoder(): PasswordEncoder
+        +filterChain(http: HttpSecurity): SecurityFilterChain
+        +authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager
+        +daoAuthenticationProvider(): DaoAuthenticationProvider
+    }
+
+    class UserDetail {
+        -user: User
+        +UserDetail(user: User)
+        +getAuthorities(): Collection<? extends GrantedAuthority>
+        +getPassword(): String
+        +getUsername(): String
+        +isAccountNonExpired(): boolean
+        +isAccountNonLocked(): boolean
+        +isCredentialsNonExpired(): boolean
+        +isEnabled(): boolean
+    }
+
+    class CorsConfiguration {
+        +corsConfigurer(): WebMvcConfigurer
+    }
+
+    class JwtRequestFilter {
+        -jwtTokenUtils: JwtTokenUtils
+        +doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain): void
+    }
+}
+
+package "Utils" {
+    class JwtTokenUtils {
+        -secret: String
+        -jwtLifetime: Duration
+        +generateToken(userDetails: UserDetails): String
+        +getUsername(token: String): String
+        +getRoles(token: String): List<String>
+        +getAllClaimsFromToken(token: String): Claims
+    }
+}
+
+UserDetail ..|> UserDetails
+JwtRequestFilter --|> OncePerRequestFilter
+WebSecurityConfig ..> JwtRequestFilter
+WebSecurityConfig ..> UserDetail
+WebSecurityConfig ..> JwtTokenUtils
+
+@enduml 

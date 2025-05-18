@@ -1,0 +1,84 @@
+@startuml
+
+!define table(x) class x << (T,#FFAAAA) >>
+!define primary_key(x) <u>x</u>
+!define foreign_key(x) #x#
+
+' Entities
+table(User) {
+    primary_key(id): Long
+    email: String <<unique>>
+    password: String
+    phone: String
+    username: String
+    active: Boolean
+    verificationToken: String
+}
+
+table(Role) {
+    primary_key(id): Long
+    name: String
+}
+
+table(Product) {
+    primary_key(id): Long
+    title: String
+    description: String
+    price: Integer
+    country: String
+    amount: Integer
+    calories: Float
+    proteins: Float
+    fats: Float
+    carbohydrates: Float
+    cellulose: Float
+    category: String
+    image: String
+}
+
+table(Order) {
+    primary_key(id): Long
+    cost: Integer
+    date: LocalDate
+    amount: Integer
+    deliveryAddress: String
+    deliveryLatitude: Double
+    deliveryLongitude: Double
+    foreign_key(user_id): Long
+    foreign_key(delivery_zone_id): Long
+    foreign_key(delivery_person_id): Long
+}
+
+table(OrderProduct) {
+    primary_key(id): Long
+    quantity: Integer
+    foreign_key(order_id): Long
+    foreign_key(product_id): Long
+}
+
+table(DeliveryZone) {
+    primary_key(id): Long
+    name: String
+    centerLatitude: Double
+    centerLongitude: Double
+    radiusKm: Double
+}
+
+table(DeliveryPerson) {
+    primary_key(id): Long
+    name: String
+    phone: String
+    isAvailable: Boolean
+    foreign_key(zone_id): Long
+}
+
+' Relationships
+User "1" -- "many" Order
+User "many" -- "many" Role
+Order "1" -- "many" OrderProduct
+Product "1" -- "many" OrderProduct
+DeliveryZone "1" -- "many" DeliveryPerson
+DeliveryZone "1" -- "many" Order
+DeliveryPerson "1" -- "many" Order
+
+@enduml 

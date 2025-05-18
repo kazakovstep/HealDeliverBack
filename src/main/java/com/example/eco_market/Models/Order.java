@@ -33,4 +33,18 @@ public class Order {
 
     @Column(name = "delivery_address")
     private String deliveryAddress;
+
+    @Column(name = "delivery_latitude")
+    private Double deliveryLatitude;
+
+    @Column(name = "delivery_longitude")
+    private Double deliveryLongitude;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "delivery_zone_id")
+    private DeliveryZone deliveryZone;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "delivery_person_id")
+    private DeliveryPerson deliveryPerson;
 }

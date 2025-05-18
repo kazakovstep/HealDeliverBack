@@ -1,0 +1,90 @@
+@startuml
+
+package "Services" {
+    interface UserService {
+        +getCurrentUser(): User
+        +allUsers(): List<User>
+        +saveUser(user: User): void
+        +deleteUser(userId: Long): boolean
+        +userGetList(idMin: Long): List<User>
+        +findByEmail(email: String): User
+        +updateUser(updatedUser: UserDto): void
+    }
+
+    class UserServiceImpl {
+        -userRepository: UserRepository
+        -roleRepository: RoleRepository
+        -encoder: PasswordEncoder
+        +getCurrentUser(): User
+        +allUsers(): List<User>
+        +saveUser(user: User): void
+        +deleteUser(userId: Long): boolean
+        +userGetList(idMin: Long): List<User>
+        +findByEmail(email: String): User
+        +updateUser(updatedUser: UserDto): void
+    }
+
+    interface OrderService {
+        +createOrder(order: Order): Order
+        +getAllUserOrders(): List<Order>
+        +getAllOrders(): List<Order>
+        +getLastUserOrder(userId: Long): Order
+        +deleteOrder(id: Long): void
+        +getOrderById(id: Long): Optional<Order>
+    }
+
+    class OrderServiceImpl {
+        -orderRepository: OrderRepository
+        -userService: UserServiceImpl
+        +createOrder(order: Order): Order
+        +getAllUserOrders(): List<Order>
+        +getAllOrders(): List<Order>
+        +getLastUserOrder(userId: Long): Order
+        +deleteOrder(id: Long): void
+        +getOrderById(id: Long): Optional<Order>
+    }
+
+    interface ProductService {
+        +listProducts(title: String): List<Product>
+        +getProductById(id: Long): Product
+        +getProductsByCategory(category: String): List<Product>
+        +saveProduct(product: Product): void
+        +deleteProduct(id: Long): void
+    }
+
+    class ProductServiceImpl {
+        -productRepository: ProductRepository
+        +listProducts(title: String): List<Product>
+        +getProductById(id: Long): Product
+        +getProductsByCategory(category: String): List<Product>
+        +saveProduct(product: Product): void
+        +deleteProduct(id: Long): void
+    }
+
+    class DeliveryPersonService {
+        -deliveryPersonRepository: DeliveryPersonRepository
+        -deliveryZoneRepository: DeliveryZoneRepository
+        +createDeliveryPerson(person: DeliveryPerson): DeliveryPerson
+        +updateDeliveryPerson(updatedDeliveryPerson: DeliveryPersonDTO): void
+        +deleteDeliveryPerson(personId: Long): boolean
+    }
+
+    class RoleService {
+        -roleRepository: RoleRepository
+        +getUserRole(): Role
+        +getAdminRole(): Role
+    }
+
+    class AuthServiceImpl {
+        -userService: UserServiceImpl
+        -jwtTokenUtils: JwtTokenUtils
+        -authenticationManager: AuthenticationManager
+        +createAuthToken(authRequest: JwtRequest): ResponseEntity<?>
+    }
+}
+
+UserService <|.. UserServiceImpl
+OrderService <|.. OrderServiceImpl
+ProductService <|.. ProductServiceImpl
+
+@enduml 

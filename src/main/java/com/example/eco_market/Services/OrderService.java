@@ -10,6 +10,7 @@ public interface OrderService {
     Order createOrder(Order order);
     List<Order> getAllUserOrders();
     List<Order> getAllOrders();
+    Order getLastUserOrder(Long userId);
     void deleteOrder(Long id);
     Optional<Order> getOrderById(Long id);
 }

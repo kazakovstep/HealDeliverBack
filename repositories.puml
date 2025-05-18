@@ -1,0 +1,32 @@
+@startuml
+
+package "Repositories" {
+    interface UserRepository {
+        +findUserByEmail(email: String): User
+        +findByEmail(email: String): User
+    }
+
+    interface RoleRepository {
+        +findByName(name: String): Role
+    }
+
+    interface ProductRepository {
+        +findByTitleContaining(title: String): List<Product>
+        +findByCategory(category: String): List<Product>
+    }
+
+    interface OrderRepository {
+        +findAllByUserId(userId: Long): List<Order>
+    }
+
+    interface OrderProductRepository {
+    }
+
+    interface DeliveryZoneRepository {
+    }
+
+    interface DeliveryPersonRepository {
+    }
+}
+
+@enduml 

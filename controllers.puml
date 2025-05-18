@@ -1,0 +1,46 @@
+@startuml
+
+package "Controllers" {
+    class UserController {
+        -userService: UserServiceImpl
+        -authService: AuthServiceImpl
+        -encoder: PasswordEncoder
+        +addUser(userForm: User): ResponseEntity<?>
+        +login(authRequest: JwtRequest): ResponseEntity<?>
+        +getCurrentUser(): User
+        +updateUser(userForm: UserDto): ResponseEntity<?>
+    }
+
+    class AdminController {
+        -deliveryPersonService: DeliveryPersonService
+        -deliveryPersonRepository: DeliveryPersonRepository
+        -orderService: OrderServiceImpl
+        -productService: ProductServiceImpl
+        -userService: UserServiceImpl
+        +createDeliveryPerson(userForm: DeliveryPerson): ResponseEntity<?>
+        +updateDeliveryPerson(userForm: DeliveryPersonDTO): ResponseEntity<?>
+        +deleteDeliveryPerson(userForm: DeliveryPersonDTO): ResponseEntity<?>
+    }
+
+    class DeliveryPersonController {
+        -deliveryPersonService: DeliveryPersonService
+        -deliveryPersonRepository: DeliveryPersonRepository
+        +getAllDeliveryPeople(): List<DeliveryPerson>
+        +createDeliveryPerson(userForm: DeliveryPerson): ResponseEntity<?>
+        +updateDeliveryPerson(userForm: DeliveryPersonDTO): ResponseEntity<?>
+        +deleteDeliveryPerson(userForm: DeliveryPersonDTO): ResponseEntity<?>
+    }
+
+    class OrdersController {
+        -orderService: OrderService
+        -productService: ProductService
+        -deliveryZoneService: DeliveryZoneService
+        -deliveryPersonService: DeliveryPersonService
+        +createOrder(orderRequest: OrderRequest): ResponseEntity<?>
+        +getAllOrders(): List<Order>
+        +getOrderById(id: Long): ResponseEntity<?>
+        +deleteOrder(id: Long): ResponseEntity<?>
+    }
+}
+
+@enduml 

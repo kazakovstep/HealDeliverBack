@@ -12,4 +12,6 @@ public class OrderRequest {
     private int cost;
     private int amount;
     private String deliveryAddress;
+    private Double deliveryLatitude;
+    private Double deliveryLongitude;
 }
