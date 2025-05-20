@@ -18,7 +18,7 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://185.182.219.60")
 @RequestMapping("/api")
 public class UserController {
 

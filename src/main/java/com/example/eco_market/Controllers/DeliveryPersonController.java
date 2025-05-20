@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/delivery_person")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://185.182.219.60")
 public class DeliveryPersonController {
     private final DeliveryPersonService deliveryPersonService;
 		private final DeliveryPersonRepository deliveryPersonRepository;

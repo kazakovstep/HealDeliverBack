@@ -26,7 +26,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/orders")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://185.182.219.60")
 public class OrdersController {
 
     private final OrderServiceImpl orderService;
@@ -73,7 +73,9 @@ public class OrdersController {
                 
                 // Назначаем доставщика из этой зоны
                 var deliveryPerson = deliveryPersonService.assignDeliveryPerson(deliveryZone.getId());
-                order.setDeliveryPerson(deliveryPerson);
+                if (deliveryPerson != null) {
+                    order.setDeliveryPerson(deliveryPerson);
+                }
             } catch (RuntimeException e) {
                 throw new RuntimeException("Не удалось назначить зону доставки: " + e.getMessage());
             }

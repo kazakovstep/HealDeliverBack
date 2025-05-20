@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://185.182.219.60")
 public class AdminController {
     private final UserServiceImpl userService;
     private final ProductServiceImpl productService;

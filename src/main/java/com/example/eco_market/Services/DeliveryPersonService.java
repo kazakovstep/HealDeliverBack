@@ -94,16 +94,14 @@ public class DeliveryPersonService {
     }
 
     public DeliveryPerson assignDeliveryPerson(Long zoneId) {
-        List<DeliveryPerson> availableCouriers = deliveryPersonRepository.findByZoneIdAndIsAvailableTrue(zoneId);
-        if (availableCouriers.isEmpty()) {
-            throw new RuntimeException("Нет доступных доставщиков в данной зоне");
+        List<DeliveryPerson> couriers = deliveryPersonRepository.findByZoneId(zoneId);
+        if (couriers.isEmpty()) {
+            return null;
         }
         
-        // Выбираем случайного доставщика из доступных
+        // Выбираем случайного доставщика из зоны
         Random random = new Random();
-        DeliveryPerson courier = availableCouriers.get(random.nextInt(availableCouriers.size()));
-        courier.setIsAvailable(false);
-        return deliveryPersonRepository.save(courier);
+        return couriers.get(random.nextInt(couriers.size()));
     }
 
     public void releaseDeliveryPerson(Long deliveryPersonId) {

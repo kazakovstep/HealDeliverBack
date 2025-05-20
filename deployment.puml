@@ -1,0 +1,40 @@
+@startuml
+
+!define DOCKERIMG(img) <img:docker.png>{img}
+!define NODEIMG(img) <img:node.png>{img}
+!define NGINXIMG(img) <img:nginx.png>{img}
+!define MYSQLIMG(img) <img:mysql.png>{img}
+!define JAVAIMG(img) <img:java.png>{img}
+
+skinparam componentStyle uml2
+skinparam backgroundColor white
+skinparam handwritten false
+
+node "Docker Host" {
+    node "Frontend Container" as frontend {
+        [React Next.js Application] as nextjs
+    }
+
+    node "Backend Container" as backend {
+        [Spring Boot Application] as spring
+    }
+
+    node "Database Container" as db {
+        [MySQL Database] as mysql
+    }
+
+    node "Nginx Container" as nginx {
+        [Nginx Reverse Proxy] as nginx_proxy
+    }
+}
+
+cloud "Client Browser" {
+    [Web Browser] as browser
+}
+
+browser --> nginx_proxy : HTTPS (443)
+nginx_proxy --> nextjs : HTTP (3000)
+nginx_proxy --> spring : HTTP (8080)
+spring --> mysql : JDBC (3306)
+
+@enduml 

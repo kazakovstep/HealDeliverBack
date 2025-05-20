@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DeliveryPersonRepository extends JpaRepository<DeliveryPerson, Long> {
     List<DeliveryPerson> findByZoneIdAndIsAvailableTrue(Long zoneId);
+    List<DeliveryPerson> findByZoneId(Long zoneId);
 } 

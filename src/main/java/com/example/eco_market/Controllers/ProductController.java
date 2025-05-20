@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://185.182.219.60")
 @RequestMapping("/api")
 public class ProductController {
     private final ProductService productService;
