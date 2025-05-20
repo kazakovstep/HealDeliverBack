@@ -106,7 +106,7 @@ public class OrdersController {
     }
 
     @GetMapping("/current")
-    public Order getLastUserOrder(@RequestBody Long userId) {
+    public Order getLastUserOrder(@RequestParam Long userId) {
         return orderService.getLastUserOrder(userId);
     }
     
